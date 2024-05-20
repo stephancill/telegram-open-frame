@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Telegram Open Frames
 
-## Getting Started
+This is a Telegram bot that lets you send and interact with Open Frames frames in a chat.
 
-First, run the development server:
+## Usage
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. Search for a frame inline by starting the message with `@OpenFramesBot <paste frame url>`.
+2. Select the frame you want to send.
+3. The frame will be sent to the chat.
+
+## Limitations
+
+- Text input not supported
+- `mint` and `tx` actions are not supported
+- Data URL images are not supported
+- Frames have to be stored and retrieved from a kv store because button data is too large to be stored in a telegram button callback (limit is 64 bytes)
+
+## Development
+
+1. Install dependencies
+
+```
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Copy `.env.sample` to `.env` and fill in the values
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Start the KV store server
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+docker-compose up
+```
 
-## Learn More
+4. Start the bot
 
-To learn more about Next.js, take a look at the following resources:
+```
+yarn dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Set the telegram webhook
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+curl -F "url=<APP_URL>/telegram" https://api.telegram.org/bot<BOT_TOKEN>/setWebhook
+```
 
-## Deploy on Vercel
+6. Search for a frame inline by starting the message with `@<yourbot> <paste frame url>`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Telegram Open Frames
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The proxy will send `clientProtocol: "*@*"` to the server with the intention that the server will serve a frame that does not require authentication. It only sends `buttonIndex` and `state` in `untrustedData`.
+
+This may change in the future when telegram webhook requests are used as authentication somehow.
