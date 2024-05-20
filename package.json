@@ -9,16 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@frames.js/render": "^0.2.6",
+    "@vercel/kv": "^1.0.1",
+    "frames.js": "^0.16.0",
+    "next": "14.2.3",
+    "node-telegram-bot-api": "^0.65.1",
+    "open-graph-scraper": "^6.5.1",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.3"
+    "telegraf": "^4.16.3"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
+    "@types/node-telegram-bot-api": "^0.64.6",
+    "@types/open-graph-scraper": "^4.8.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
